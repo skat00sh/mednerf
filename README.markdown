@@ -25,13 +25,20 @@ After training a model, you can test its capacity to reconstruct 3D-aware CT pro
 
 To execute the reconstruction, please refer to graf-main folder and execute:
 ```
-python render_views_xray.py configs/experiment.yaml
-    --xray_img_path path_to_xray_folder
-    --save_dir ./renderings
-    --model path_to_trained_model/model_best.pt
-    --save_every 20
-    --psnr_stop 20
+python render_xray_G.py configs/experiment.yaml /
+    --xray_img_path path_to_xray_folder /
+    --save_dir ./renderings /
+    --model path_to_trained_model/model_best.pt /
+    --save_every 25 /
+    --psnr_stop 25 
 ```
+Update: This step requires more memory as rays are now tracked during the optimization process, so the higher the resolution of the image, more memory it requires. For this, we add an additional argument (img_size) with a default value of 64 if GPU size <=10GB.
+
+**Optimizing both G and z** (`render_xray_G_Z.py`): By setting the model to generator.train() when calling reconstruction(), we can optimize z as well and NLL will change over time. Finetuning like this, optimizes faster when considering a single X-ray projection, however, G would need to figure out 3D consistency for this new instance almost from scratch.
+
+**Optimizing G only** (`render_xray_G.py`): By setting generator.eval(), only G and part of its parameters will be optimized. NLL doesn't play a role anymore in the reconstruction process. 3D consistency from G is preserved.
+
+We consider optimizing G only the way to go (at least for now). This open new future experiments. Both rendering scripts if you'd like to try them. 
 
 ## PixelNeRF instructions
 To use pixelNeRF model use the following configuration files:
