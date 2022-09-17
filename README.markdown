@@ -41,7 +41,7 @@ Update: This step requires more memory as rays are now tracked during the optimi
 We consider optimizing G only the way to go (at least for now). This open new future experiments. Both rendering scripts if you'd like to try them. 
 
 ## PixelNeRF instructions
-To use pixelNeRF model use the following configuration files:
+First, download the camera poses from [this link](https://drive.google.com/file/d/1xasjb7Q2nROiwDDeUVHrC6GjIEAm0HRs/view?usp=sharing). We referred to Plastimatch's [projection geometry](http://plastimatch.org/proj_geometry_15.html) and [Projection matrix](http://plastimatch.org/proj_mat_file_format.html) documentation to generated the camera matrices. To use pixelNeRF model use the following configuration files:
 
 ```
 pixel-nerf/conf/exp/ct_single.conf
